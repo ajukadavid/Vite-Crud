@@ -35,10 +35,11 @@ const handleCreate = () => {
 }
 </script>
 <template>
-    <div class="modal-overlay">
+    <div  @click.self="handleClose" class="modal-overlay">
         <div class="modal">
-            <div class="border-b px-8 border-slate-300">
+            <div class="border-b px-8 border-slate-300 flex justify-between">
                 <p class="-mr-8">Create item</p>
+                <span></span>
             </div>
             <div>
                 <form name="signUp" class="p-5">

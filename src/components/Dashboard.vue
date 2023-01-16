@@ -34,12 +34,10 @@ const handleShowEdit = (id:string, note:string, description: string) => {
 }
 
 const handleEdit = async (val:any) => {
-  console.log(val)
   showEditModal.value = false
   processLoading.value = true
   const requestConfig: AxiosRequestConfig = {headers: getAuthHeaders()};
-  let editResponse = await axios.put(`https://test-api.sytbuilder.com/items/${editId.value}`, editNote.value, requestConfig)
-  console.log(editNote.value)
+  let editResponse = await axios.put(`https://test-api.sytbuilder.com/items/${editId.value}`, val, requestConfig)
   if(editResponse.status === 200) {
     let myNotes = await axios.get('https://test-api.sytbuilder.com/items?page=1&count=10', requestConfig)
     processLoading.value = false
@@ -69,7 +67,6 @@ const handleCreate = async (note:Note) => {
   $store.commit("Notes/saveNotes", createNote.data.item)
   handleClose(false)
   }catch(err:any){
-    console.log(err.response.data.message)
     CreateErr.value = err.response.data.message
   }
   
@@ -97,7 +94,7 @@ const verifyMessage = ref<boolean | null>(null)
 
 const handleVerify = () => {
   showVerifyModal.value = false
-  $router.push('/dashboard')
+  $router.push('/')
   verifyMessage.value = false
 }
 
@@ -131,6 +128,7 @@ onMounted(async() => {
 
 <template>
   <div>
+     <div>
     <div class="w-full bg-verifyColor flex justify-center py-4" v-if="verifyMessage">
       <p>You have not verified your email address. Click <span @click.prevent="handleVerifyEmail" class="text-blue-600 cursor-pointer">here</span> to resend verification link.</p>
     </div>
@@ -152,8 +150,9 @@ onMounted(async() => {
     
   </div>
   </div>
-    <div v-else class="grid grid-cols-3 gap-4">
-      <div class="border wpx-420 hpx-102 p-5 m-6 bg-white shadow-sm" v-for="note in notes">
+    <div v-else>
+      <div v-if="notes?.length" class="grid grid-cols-3 gap-4">
+        <div class="border wpx-420 hpx-102 p-5 m-6 bg-white shadow-sm" v-for="note in notes">
         <div>
           <p class="text-sm text-cardNameColor">Name</p>
           <p>{{note.name}}</p>
@@ -175,6 +174,13 @@ onMounted(async() => {
               </button>
         </div>
       </div>
+      </div>
+      <div v-else class="justify-center flex bg-navColor items-center h-screen">
+    <div class="text-4xl">
+      You currently have no events, create a new one with the button below.
+    </div>
+  </div>
+  </div>
     </div>
     <div class="bg-blue-600 add__button mr-20 mb-10 rounded-full py-3 px-4">
       <button @click="showModal = true"><span class="text-white text-3xl material-symbols-outlined">
@@ -186,6 +192,8 @@ onMounted(async() => {
     <VerifyModal v-show="showVerifyModal" @update:close="handleVerify"/>
     <CreateModal v-show="showModal" @update:close="handleClose" @update:handle-create="handleCreate" :err="CreateErr"/>
   </div>
+
+ 
 
 </template>
 

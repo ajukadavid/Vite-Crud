@@ -8,7 +8,7 @@ const handleClose = () => {
 };
 </script>
 <template>
-  <div class="modal-overlay">
+  <div   @click.self="handleClose" class="modal-overlay">
     <div class="modal">
       <div class="flex justify-center">
         <div class="mt-20">

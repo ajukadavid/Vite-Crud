@@ -47,7 +47,7 @@ const handleSignUp = async () => {
     const response = await axios.post('https://test-api.sytbuilder.com/tokens', data)
     localStorage.setItem('appToken', response.data.token)
     processLoading.value = false
-    $router.push('/dashboard')
+    $router.push('/')
 
   } catch (error: any) {
     loginErr.value = true

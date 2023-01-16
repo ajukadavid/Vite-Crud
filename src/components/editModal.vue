@@ -37,7 +37,7 @@ import { ref, onMounted, nextTick, computed } from 'vue'
     
     const handleEdit = () => {
         const sendVal = {
-            note: editNote.value,
+            name: editNote.value,
             description: editDesc.value
         }
          emit('update:handleEdit', sendVal)
@@ -48,12 +48,11 @@ import { ref, onMounted, nextTick, computed } from 'vue'
         desc.value = props.description
         note.value = props.note
         })
-        console.log(props.description)
         
     })
     </script>
     <template>
-        <div class="modal-overlay">
+        <div  @click.self="handleClose" class="modal-overlay">
             <div class="modal">
                 <div class="border-b px-8 border-slate-300">
                     <p class="-mr-8">Edit item</p>

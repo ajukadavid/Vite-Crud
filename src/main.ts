@@ -8,14 +8,22 @@ import SignUp from '../src/components/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import store, { key } from './store/store'
 
+const isAuthenticated = localStorage.getItem('appToken') || '';
+
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         {
-            path: '/dashboard',
+            path: '/',
             name: 'Dashboard',
-            component: DashBoard
+            component: DashBoard,
+            beforeEnter: (to, from) => {
+                if(!isAuthenticated){
+                    return false
+                }
+            }
+        
         },
         {
             path: '/login',
@@ -30,16 +38,8 @@ const router = createRouter({
     ]
 })
 
-const isAuthenticated = localStorage.getItem('appToken') || '';
 
-// router.beforeEach(async (to, from) => {
-//     if(
-//         !isAuthenticated && 
-//         to.name !== 'SignUp'
-//     ){
-//         return { name: 'SignUp' }
-//     }
-// })
+
 const app = createApp(App)
 app.use(store, key)
 app.use(router)
