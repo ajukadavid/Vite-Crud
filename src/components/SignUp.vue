@@ -67,7 +67,7 @@ const handleSignUp = async () => {
      $store.commit("Login/saveToken",  response.data.user.email_verification_token)
     localStorage.setItem('appToken', response.data.token)
     processLoading.value = false
-    $router.push('/')
+    $router.push('/dashboard')
     } catch(err:any) {
       processLoading.value = false
       loginErr.value = true
