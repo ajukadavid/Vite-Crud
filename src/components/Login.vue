@@ -36,7 +36,7 @@ const rules = {
 }
 
 const v$ = useVuelidate(rules, state)
-const handleSignUp = async () => {
+const handleLogin = async () => {
   v$.value.$touch()
   try {
     processLoading.value = true
@@ -83,13 +83,6 @@ const handleSignUp = async () => {
               id="password" type="password" placeholder="Type your password here" />
           </div>
         </div>
-        <!-- <div v-for="error of v$.password.$errors" :key="error.$uid">
-          <div class="mt-2 text-red-600">
-              <input type="radio" :id="error.$validator" :name="error.$uid" class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500  focus:ring-2"
-              value="Contains at least one uppercase letter">
-            <label :for="error.$validator" class="ml-3 text-xs">{{error.$message}}</label><br>
-          </div>
-        </div> -->
         <div v-if="v$.email.$error || loginErr" class="text-red-500 text-xs mt-2">{{ errMessage.toString() }}</div>
 
         <div>
@@ -97,7 +90,7 @@ const handleSignUp = async () => {
             <div class="bg-slate-400 dots-3 w-full hover:bg-slate-700 text-white font-bold rounded">
             </div>
           </div>
-          <button v-else type="submit" for="login" @click.prevent="handleSignUp"
+          <button v-else type="submit" for="login" @click.prevent="handleLogin"
             class="bg-slate-400 w-full mt-4 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">
             Log in
           </button>
