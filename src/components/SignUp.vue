@@ -78,7 +78,10 @@ const handleSignUp = async () => {
 
 }
 
-
+const handleSignIn = () => {
+  console.log('hibbb')
+$router.push({name: 'Login'})
+}
 </script>
 
 <template>
@@ -86,7 +89,7 @@ const handleSignUp = async () => {
     <div class="bg-white shadow-sm p-4">
       <div class="mx-40 mt-3 mb-8">
         <h5 class="text-xl">Create an Account</h5>
-        <p class="text-slate-400 -ml-8">Already have an account? <span class="text-blue-800">Log in</span></p>
+        <p class="text-slate-400 -ml-8">Already have an account? <span @click="handleSignIn" class="text-blue-800 cursor-pointer">Log in</span></p>
       </div>
       <form name="signUp">
         <div class="flex justify-between">

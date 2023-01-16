@@ -1,8 +1,9 @@
 <script setup lang="ts">    
+import { ref, onMounted, nextTick, computed } from 'vue'
     
     interface Props {
-        note?: string;
-        description?: string;
+        note: string;
+        description: string;
     }
     
     const props = withDefaults(defineProps<Props>(), {
@@ -14,14 +15,42 @@
     const handleClose = () => {
         emit('update:close', false)
     }
+    const editNote = ref('')
+    const editDesc = ref('')
+
+    const desc = computed({
+        get () {
+            return props.description
+        },
+        set (val) {
+            editDesc.value = val
+        }
+    })
+    const note = computed({
+        get () {
+            return props.note
+        },
+        set (val) {
+            editNote.value = val
+        }
+    })
     
     const handleEdit = () => {
-        const note = {
-            note: props.note,
-            description: props.description
+        const sendVal = {
+            note: editNote.value,
+            description: editDesc.value
         }
-        emit('update:handleEdit', note)
+         emit('update:handleEdit', sendVal)
     }
+    onMounted( async () => {
+
+        await nextTick(() => {
+        desc.value = props.description
+        note.value = props.note
+        })
+        console.log(props.description)
+        
+    })
     </script>
     <template>
         <div class="modal-overlay">
@@ -34,14 +63,14 @@
                         <div class="mb-4">
                             <label for="name" class="text-black text-sm">Name</label>
                             <div class="flex mt-2">
-                                <input v-model="props.note" class="w-full py-1 text-gray-700 outline outline-OutlineColor" id="name" type="name"
+                                <input v-model="note" class="w-full py-1 text-gray-700 outline outline-OutlineColor" id="name" type="name"
                                     placeholder="Input item name here" />
                             </div>
                         </div>
                         <div class="">
-                            <label for="password" class="text-black text-sm">Add Note {{props.note}}</label>
+                            <label for="note" class="text-black text-sm">Add Note {{note}}</label>
                             <div class="mr-20 mt-2">
-                                <textarea v-model="props.description" id="note" name="note" class="outline outline-OutlineColor" rows="4" cols="52">
+                                <textarea v-model="desc" id="note" name="note" class="outline outline-OutlineColor" rows="4" cols="52">
                                 </textarea>
                             </div>
                         </div>

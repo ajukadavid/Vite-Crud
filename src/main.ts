@@ -23,7 +23,7 @@ const router = createRouter({
             component: Login
         },
          {
-            path: '/',
+            path: '/signUp',
             name: 'SignUp',
             component: SignUp
         }
@@ -32,14 +32,14 @@ const router = createRouter({
 
 const isAuthenticated = localStorage.getItem('appToken') || '';
 
-router.beforeEach(async (to, from) => {
-    if(
-        !isAuthenticated && 
-        to.name !== 'SignUp'
-    ){
-        return { name: 'SignUp' }
-    }
-})
+// router.beforeEach(async (to, from) => {
+//     if(
+//         !isAuthenticated && 
+//         to.name !== 'SignUp'
+//     ){
+//         return { name: 'SignUp' }
+//     }
+// })
 const app = createApp(App)
 app.use(store, key)
 app.use(router)

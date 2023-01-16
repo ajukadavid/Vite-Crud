@@ -34,10 +34,12 @@ const handleShowEdit = (id:string, note:string, description: string) => {
 }
 
 const handleEdit = async (val:any) => {
+  console.log(val)
   showEditModal.value = false
   processLoading.value = true
   const requestConfig: AxiosRequestConfig = {headers: getAuthHeaders()};
-  let editResponse = await axios.put(`https://test-api.sytbuilder.com/items/${editId.value}`, val, requestConfig)
+  let editResponse = await axios.put(`https://test-api.sytbuilder.com/items/${editId.value}`, editNote.value, requestConfig)
+  console.log(editNote.value)
   if(editResponse.status === 200) {
     let myNotes = await axios.get('https://test-api.sytbuilder.com/items?page=1&count=10', requestConfig)
     processLoading.value = false
@@ -180,7 +182,7 @@ onMounted(async() => {
         </span></button>
     </div>
 
-    <EditModal v-show="showEditModal" :note="editNote" :description="editDesc" @update:handle-edit="handleEdit" @update:close="handleCloseEdit"/>
+    <EditModal v-if="showEditModal" :note="editNote" :description="editDesc" @update:handle-edit="handleEdit" @update:close="handleCloseEdit"/>
     <VerifyModal v-show="showVerifyModal" @update:close="handleVerify"/>
     <CreateModal v-show="showModal" @update:close="handleClose" @update:handle-create="handleCreate" :err="CreateErr"/>
   </div>
