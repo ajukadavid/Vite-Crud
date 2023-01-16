@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import './style.css'
 import './styles/app.css'; 
 import App from './App.vue'
-import DashBoard from './components/DashBoard.vue'
+import dashBoard from './components/dashBoard.vue'
 import Login from '../src/components/Login.vue'
 import SignUp from '../src/components/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -17,7 +17,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'Dashboard',
-            component: DashBoard,
+            component: dashBoard,
             beforeEnter: (to, from) => {
                 if(!isAuthenticated){
                     return false
