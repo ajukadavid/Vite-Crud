@@ -94,7 +94,7 @@ const verifyMessage = ref<boolean | null>(null)
 
 const handleVerify = () => {
   showVerifyModal.value = false
-  $router.push('/')
+  $router.push('/dashboard')
   verifyMessage.value = false
 }
 
