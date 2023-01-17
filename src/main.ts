@@ -7,9 +7,7 @@ import Login from '../src/components/Login.vue'
 import SignUp from '../src/components/SignUp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import store, { key } from './store/store'
-
 const isAuthenticated = localStorage.getItem('appToken') || '';
-
 
 const router = createRouter({
     history: createWebHistory(),
