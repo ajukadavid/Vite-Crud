@@ -19,6 +19,8 @@ const router = createRouter({
             beforeEnter: (to, from) => {
                 if(!isAuthenticated){
                     return false
+                } else {
+                    return true
                 }
             }
         

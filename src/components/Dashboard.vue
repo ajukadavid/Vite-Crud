@@ -151,7 +151,7 @@ onMounted(async() => {
   </div>
   </div>
     <div v-else>
-      <div v-if="notes?.length" class="grid grid-cols-3 gap-4">
+      <div v-if="notes?.length! > 1" class="grid grid-cols-3 gap-4">
         <div class="border wpx-420 hpx-102 p-5 m-6 bg-white shadow-sm" v-for="note in notes">
         <div>
           <p class="text-sm text-cardNameColor">Name</p>
@@ -192,9 +192,6 @@ onMounted(async() => {
     <VerifyModal v-show="showVerifyModal" @update:close="handleVerify"/>
     <CreateModal v-show="showModal" @update:close="handleClose" @update:handle-create="handleCreate" :err="CreateErr"/>
   </div>
-
- 
-
 </template>
 
 <style scoped>
